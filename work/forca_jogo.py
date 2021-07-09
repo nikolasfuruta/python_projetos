@@ -3,9 +3,11 @@ from random import choice
 class Forca:
 
     def __init__(self):
+        self._erro = 0
         self._secret = self._get_secret_word()
-        self._base = self._iniciar(self._secret)
-        self._play(self._secret,self._base)
+        self._base = self._iniciar()
+        self._past_letter = []
+        self._play()
 
     def _voltar_intro(self):
         print('Saindo do jogo da Forca.')
@@ -19,57 +21,55 @@ class Forca:
             return choice(words)
 
 
-    def _iniciar(self,secret):
+    def _iniciar(self):
         print('''
 *********************************
 *** Bem vindo ao jogo da Forca! ***
 *********************************\n''')
-        base = ['_' for i in range(len(secret))]
+        base = ['_' for i in range(len(self._secret))]
         return base
 
 
-    def _visualizar(self,base):
-        visual = ''.join(base)
+    def _visualizar(self):
+        visual = ''.join(self._base)
         print(visual)
 
 
-    def _avaliar(self,escolha,secret,base,erro):
-        if escolha in secret:
-            for i in range(len(secret)):
-                if escolha == secret[i]:
-                    base[i] = escolha
-            return erro
+    def _avaliar(self,escolha):
+        if escolha in self._secret and escolha not in self._past_letter:
+            for i in range(len(self._secret)):
+                if escolha == self._secret[i]:
+                    self._base[i] = escolha
+                    self._past_letter.append(escolha)
         else:
             print("Você errou")
-            erro += 1
-            return erro
+            self._erro += 1
 
 
-    def _ganhar_perder(self,secret,base,erro):
-        if base == list(secret):
-            print(f"Você acertou! A palavra é {self._visualizar(base)}")
+    def _ganhar_perder(self):
+        if self._base == list(self._secret):
+            print(f"Você acertou! A palavra é {self._visualizar()}")
             return False
-        if erro == len(secret):
-            print(f"Tentativas esgotadas. A palavra era {secret}")
+        if self._erro == len(self._secret):
+            print(f"Tentativas esgotadas. A palavra era {self._secret}")
             return False
         else:
-            print(f"Restam {int(len(secret)) - erro} tentativas\n")
+            print(f"Restam {int(len(self._secret)) - self._erro} tentativas\n")
             return True
 
 
 
-    def _play(self,secret,base):
-        erro = 0
+    def _play(self):
         cont = True
         while cont:
-            self._visualizar(base)
+            self._visualizar()
 
             escolha = input("Escolha uma letra: ")
             while not escolha.isalpha():
                 escolha = input("Escolha uma letra: ")
 
-            erro = self._avaliar(escolha,secret,base,erro)
-            cont = self._ganhar_perder(secret,base,erro)
+            self._avaliar(escolha)
+            cont = self._ganhar_perder()
 
         jogar = input("Deseja jogar novamente? [s/n]:  ")
         while jogar not in 'sn':
