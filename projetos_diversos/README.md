@@ -1,1 +1,1 @@
-# Repositóriio para guardar projetos aleatórios na linguagem python.
+### Repositório para guardar projetos aleatórios na linguagem python.
