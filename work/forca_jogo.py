@@ -11,7 +11,7 @@ class Forca:
 
     def _voltar_intro(self):
         print('Saindo do jogo da Forca.')
-        from work.intro_jogo import Intro #importar o arquivo intro
+        from intro_jogo import Intro #importar o arquivo intro
         return Intro()
 
 
