@@ -11,7 +11,7 @@ class Adivinhacao:
 
     def _voltar_intro(self):
         print('Saindo do jogo de adivinhação.')
-        from work.intro_jogo import Intro
+        from intro_jogo import Intro
         return Intro()
 
 
