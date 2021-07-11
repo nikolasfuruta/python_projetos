@@ -7,13 +7,13 @@ class ParImpar:
         self._cpu_ponto = b
         self._par_ou_impar = self._escolha_par_ou_impar()
         self._seu_num = self._escolha_seu_num()
-        self._cpu_num = randint(1,2)
+        self._cpu_num = randint(1,5)
         self._total = self._seu_num + self._cpu_num
         self.play()
 
     def _voltar_intro(self):
         print('Saindo do jogo de par ou impar.')
-        from work.intro_jogo import Intro
+        from intro_jogo import Intro
         return Intro()
 
 
